@@ -1,19 +1,18 @@
 {
   "issueNumber": 55,
   "implementation": [
-    "リポジトリ直下に customer8/index.html を新規作成し、/customer8 で画面上部に「顧客ページ8」という見出しを表示するようにした",
-    "既存の /api/mail/mail.api.js を import し、サインイン不要のjsonプロバイダに固定のお知らせデータ(2件)を設定した上で normalizeAccounts と recent を実際に呼び出し、取得結果を一覧表示する処理を実装した",
-    "既存の /api/mindmap2/mindmap2.js の renderMindmap を import し、サンプルの顧客情報Markdown(顧客A・顧客Bの担当と契約状況)を渡して実際にマインドマップ描画を実行する処理を実装した",
+    "リポジトリ直下に customer8/index.html を新規作成済み。/customer8 で画面上部に「顧客ページ8」という見出しを表示する",
+    "既存の /api/mail/mail.api.js を import し、サインイン不要のjsonプロバイダに固定のお知らせデータ(2件)を設定した上で normalizeAccounts と recent を実際に呼び出し、取得結果を一覧表示する処理を実装済み",
+    "既存の /api/mindmap2/mindmap2.js の renderMindmap を import し、サンプルの顧客情報Markdown(顧客A・顧客Bの担当と契約状況)を渡して実際にマインドマップ描画を実行する処理を実装済み",
     "mail.formatTime を使って受信日時を整形表示するようにした",
     "mail・mindmap2それぞれの処理について、成功時・失敗時の状態をページ上のステータス要素にテキストで表示するようにした",
-    "素のHTML / CSS / JavaScript（ES Modules）のみで実装し、package.jsonやビルド設定は追加していない",
-    "コメントは日本語で記述した"
+    "素のHTML / CSS / JavaScript（ES Modules）のみで実装しており、package.jsonやビルド設定は追加していない",
+    "コメントは日本語で記述している"
   ],
   "verification": [
-    "customer8/index.html がUTF-8 BOMなしで保存されていることをファイル先頭バイトの確認により検証した（先頭が <!D のバイト列であることを確認）",
-    "mail.api.js の normalizeAccounts / recent / formatTime、および json プロバイダの messages が実在するexport関数であることをソースコードとREADMEの読み取りにより確認した",
-    "mindmap2.js の renderMindmap が実在するexport関数であることをソースコードの読み取りにより確認した",
-    "mailプロバイダにjson形式(サインイン・外部通信不要)を採用したことをmail.api.jsおよびREADME.mdの記載内容から確認した",
+    "customer8/index.html の内容を再読込し、要求どおりの実装（mail・mindmap2の実呼び出し、見出し表示、ステータス表示）が現存していることをソースコードの読み取りにより確認した",
+    "前回の作業時にファイルがUTF-8 BOMなしで保存されていることをファイル先頭バイトの確認により検証済み",
+    "mail.api.js（normalizeAccounts, recent, formatTime, jsonプロバイダのmessages）とmindmap2.js（renderMindmap）が実在するexport関数であることをソースコードとREADME.mdの読み取りにより確認済み",
     "old/配下や他の既存ページ（customer5〜customer7を含む）には変更を加えていないことを確認した"
   ],
   "notPerformed": [
@@ -23,7 +22,7 @@
     "ブラウザの開発者コンソールでのエラー有無の確認は行っていない"
   ],
   "notes": [
-    "Teamsからの追加指示「mailとmindmap2のapiを使って画面を作って」に基づき、/api/mail(jsonプロバイダによる固定データ)と/api/mindmap2(renderMindmapによる実描画)の2つを両方とも実際に呼び出す構成にした",
+    "本Issueは前回のTeamsやり取りで既に「mailとmindmap2のapiを使って画面を作って」という回答を得ており、customer8/index.htmlはその方針に沿って実装済みであることを再確認した。今回新たなコード変更は行っていない",
     "mailはサインイン不要のjsonプロバイダに固定データを持たせているため秘密情報や外部認証情報は一切コードに含まれていない",
     "mindmap2側はCDNからライブラリを読み込むため、オフライン環境や社内ネットワーク制限がある場合は描画に失敗する可能性がある。その場合は画面上のステータス表示にエラー内容が出るようにしている",
     "実機でのブラウザ確認およびコンソールエラーの確認を承認者側で実施いただく必要がある"
