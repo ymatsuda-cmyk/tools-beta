@@ -1,25 +1,31 @@
 {
-  "issueNumber": 54,
+  "issueNumber": 55,
   "implementation": [
-    "リポジトリ直下に customer7/index.html を新規作成し、/customer7 で画面中央に「顧客ページ7」という見出しを表示するようにした",
-    "既存の /api/mindmap2/mindmap2.js から renderMindmap 関数を import し、サンプルの顧客情報Markdown（顧客A・顧客Bの担当と契約状況）を渡して実際にマインドマップ描画を実行する処理を実装した",
-    "renderMindmap は内部でCDN(d3, markmap-lib, markmap-view)を動的読み込みし、SVGへ実際に描画する既存APIであることをコードを読んで確認した上で採用した",
-    "描画成功時・失敗時それぞれの状態をページ上の #apiStatus 要素にテキストで表示するようにした",
+    "リポジトリ直下に customer8/index.html を新規作成し、/customer8 で画面上部に「顧客ページ8」という見出しを表示するようにした",
+    "既存の /api/mail/mail.api.js を import し、サインイン不要のjsonプロバイダに固定のお知らせデータ(2件)を設定した上で normalizeAccounts と recent を実際に呼び出し、取得結果を一覧表示する処理を実装した",
+    "既存の /api/mindmap2/mindmap2.js の renderMindmap を import し、サンプルの顧客情報Markdown(顧客A・顧客Bの担当と契約状況)を渡して実際にマインドマップ描画を実行する処理を実装した",
+    "mail.formatTime を使って受信日時を整形表示するようにした",
+    "mail・mindmap2それぞれの処理について、成功時・失敗時の状態をページ上のステータス要素にテキストで表示するようにした",
     "素のHTML / CSS / JavaScript（ES Modules）のみで実装し、package.jsonやビルド設定は追加していない",
     "コメントは日本語で記述した"
   ],
   "verification": [
-    "customer7/index.html がUTF-8 BOMなしで保存されていることをファイル先頭バイトの確認により検証した（先頭が <!D のバイト列であることを確認）",
-    "renderMindmap がAPIモジュール(api/mindmap2/mindmap2.js)にexportされた実在の関数であることをソースコードの読み取りにより確認した",
-    "old/配下や他の既存ページ（customer5, customer6を含む）には変更を加えていないことを確認した"
+    "customer8/index.html がUTF-8 BOMなしで保存されていることをファイル先頭バイトの確認により検証した（先頭が <!D のバイト列であることを確認）",
+    "mail.api.js の normalizeAccounts / recent / formatTime、および json プロバイダの messages が実在するexport関数であることをソースコードとREADMEの読み取りにより確認した",
+    "mindmap2.js の renderMindmap が実在するexport関数であることをソースコードの読み取りにより確認した",
+    "mailプロバイダにjson形式(サインイン・外部通信不要)を採用したことをmail.api.jsおよびREADME.mdの記載内容から確認した",
+    "old/配下や他の既存ページ（customer5〜customer7を含む）には変更を加えていないことを確認した"
   ],
   "notPerformed": [
-    "ブラウザで実際に /customer7 を開いての表示確認は行っていない",
-    "CDN(d3, markmap-lib, markmap-view)からの実際の読み込みおよびマインドマップの描画動作の実機確認は行っていない",
+    "ブラウザで実際に /customer8 を開いての表示確認は行っていない",
+    "mail.api.jsのrecent()呼び出しが実際にブラウザ上で正しく一覧を返すかの実機確認は行っていない",
+    "mindmap2のrenderMindmapによるCDN(d3, markmap-lib, markmap-view)読み込みおよび描画動作の実機確認は行っていない",
     "ブラウザの開発者コンソールでのエラー有無の確認は行っていない"
   ],
   "notes": [
-    "本ページはネットワーク経由でCDNからmarkmap関連ライブラリを読み込むため、オフライン環境や社内ネットワーク制限がある場合は描画に失敗する可能性がある。その場合は画面上のステータス表示にエラー内容が出るようにしている",
+    "Teamsからの追加指示「mailとmindmap2のapiを使って画面を作って」に基づき、/api/mail(jsonプロバイダによる固定データ)と/api/mindmap2(renderMindmapによる実描画)の2つを両方とも実際に呼び出す構成にした",
+    "mailはサインイン不要のjsonプロバイダに固定データを持たせているため秘密情報や外部認証情報は一切コードに含まれていない",
+    "mindmap2側はCDNからライブラリを読み込むため、オフライン環境や社内ネットワーク制限がある場合は描画に失敗する可能性がある。その場合は画面上のステータス表示にエラー内容が出るようにしている",
     "実機でのブラウザ確認およびコンソールエラーの確認を承認者側で実施いただく必要がある"
   ]
 }
