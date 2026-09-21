@@ -1,2 +1,2 @@
-下記エラーが表示されているため、修正して
+下記のエラーを解消して
 /api 連携: 取得できませんでした（Failed to fetch dynamically imported module: https://ymatsuda-cmyk.github.io/api/schedule/schedule.api.js）
