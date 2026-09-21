@@ -70,6 +70,24 @@
   .main-tabs button.active{background:var(--surface-2);color:var(--text);}
   .view[hidden]{display:none;}
 
+  .custom-list{display:flex;flex-direction:column;gap:8px;}
+  .custom-row{
+    display:flex;align-items:center;gap:12px;background:var(--surface);
+    border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px;
+  }
+  .custom-row.is-hidden{opacity:0.5;}
+  .custom-row .cr-name{flex:1;min-width:0;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .custom-row .cr-kind{font-size:11px;color:var(--text-muted);width:64px;flex:none;}
+  .custom-row select.cr-tab{
+    background:var(--surface-2);border:1px solid var(--border);border-radius:7px;
+    color:var(--text);font-size:12px;padding:5px 8px;
+  }
+  .custom-row .cr-hide{
+    background:transparent;border:1px solid var(--border);border-radius:7px;
+    color:var(--text-secondary);font-size:12px;padding:5px 10px;cursor:pointer;
+  }
+  .custom-row .cr-hide:hover{border-color:var(--border-strong);color:var(--text);}
+
   .monitor-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;}
   .monitor-bar .mono{font-size:11px;color:var(--text-muted);}
   .monitor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;}
@@ -460,6 +478,7 @@
     <button data-view="links" class="active">リンク</button>
     <button data-view="monitor">稼働状況</button>
     <button data-view="info">情報</button>
+    <button data-view="custom">カスタマイズ</button>
   </div>
 
   <div class="status-line mono" id="statusLine">読み込み中…</div>
@@ -504,6 +523,14 @@
     <div class="monitor-grid" id="infoGrid"></div>
     <div class="monitor-empty" id="infoEmpty">
       情報カードが登録されていません。上の「＋ 追加」からドル円・ルール・電卓のカードを登録できます。
+    </div>
+  </div>
+
+  <div class="view" data-view="custom" hidden>
+    <p class="sub">すべてのカードを一覧表示します。タブの移動や非表示・再表示の切り替えができます。</p>
+    <div class="custom-list" id="customList"></div>
+    <div class="monitor-empty" id="customEmpty" hidden>
+      カードがまだ登録されていません。
     </div>
   </div>
 </div>
@@ -961,6 +988,18 @@
       </select>
     </div>
     <div class="field">
+      <label>表示先タブ</label>
+      <select id="cf-tab">
+        <option value="links">リンク</option>
+        <option value="status">稼働状況</option>
+        <option value="info">情報</option>
+        <option value="custom">カスタマイズ（非表示扱い）</option>
+      </select>
+    </div>
+    <div class="field">
+      <label><input type="checkbox" id="cf-hidden"> このカードを非表示にする</label>
+    </div>
+    <div class="field">
       <label>カードJSON</label>
       <textarea id="cf-json" spellcheck="false"></textarea>
       <div class="err" id="err-cardjson">JSONの形式が正しくありません</div>
@@ -1171,7 +1210,7 @@ async function init(){
 /** URLの ?view= を反映して初期表示を決める */
 function applyInitialView(){
   const view = initialParams.view;
-  if(view !== 'monitor' && view !== 'info') return;
+  if(view !== 'monitor' && view !== 'info' && view !== 'custom') return;
   const btn = document.querySelector(`#mainTabs button[data-view="${view}"]`);
   if(btn) btn.click();
 }
@@ -1230,6 +1269,7 @@ function render(){
   renderChips();
   const q = document.getElementById('searchInput').value.trim().toLowerCase();
   const list = resources.filter(r=>{
+    if(isHidden(r) || tabOf('resource', r) !== 'links') return false;
     const okCat = activeCategory==='すべて' || r.category===activeCategory;
     const okQ = !q || (r.title||'').toLowerCase().includes(q);
     return okCat && okQ;
@@ -1497,6 +1537,11 @@ function syncCardConfigJson(){
   if(!current) return;
   const next = { ...current.item, cardSize: F('cf-size').value };
   if(next.cardSize === 'normal') delete next.cardSize;
+  const tabVal = F('cf-tab').value;
+  if(tabVal === defaultTabOf(current.kind, current.item)) delete next.tab;
+  else next.tab = tabVal;
+  if(F('cf-hidden').checked) next.hidden = true;
+  else delete next.hidden;
   F('cf-json').value = JSON.stringify(next, null, 2);
 }
 
@@ -1506,6 +1551,8 @@ function openCardConfig(target){
   if(!current) return;
   F('cardConfigTitle').textContent = (current.item.name || current.item.title || current.item.id) + ' のカード設定';
   F('cf-size').value = cardSizeValue(current.item.cardSize || 'normal');
+  F('cf-tab').value = tabOf(current.kind, current.item);
+  F('cf-hidden').checked = isHidden(current.item);
   F('cf-json').value = JSON.stringify(current.item, null, 2);
   F('err-cardjson').style.display = 'none';
   F('cardConfigOverlay').classList.add('show');
@@ -1520,6 +1567,11 @@ async function applyCardConfig(){
     parsed.id = parsed.id || current.id;
     parsed.cardSize = cardSizeValue(parsed.cardSize || F('cf-size').value);
     if(parsed.cardSize === 'normal') delete parsed.cardSize;
+    const tabVal = parsed.tab || F('cf-tab').value;
+    if(tabVal === defaultTabOf(current.kind, parsed)) delete parsed.tab;
+    else parsed.tab = tabVal;
+    if(parsed.hidden === undefined) parsed.hidden = F('cf-hidden').checked;
+    if(!parsed.hidden) delete parsed.hidden;
 
     if(current.kind === 'monitor'){
       if(!parsed.endpoint && !ENDPOINTLESS_TYPES.includes(parsed.type)){
@@ -1538,6 +1590,7 @@ async function applyCardConfig(){
     }else{
       parsed.type = parsed.type || detectType(parsed.url || '');
       resources = resources.map(x => x.id === current.id ? parsed : x);
+
       render();
     }
 
@@ -1545,6 +1598,7 @@ async function applyCardConfig(){
     F('s-json').value = currentJSON();
     F('err-cardjson').style.display = 'none';
     cardConfigTarget = current.kind + ':' + parsed.id;
+    if(currentView === 'custom') renderCustomTab();
     toast('カード設定を反映しました');
   }catch(err){
     F('err-cardjson').textContent = 'JSONの形式が正しくありません: ' + err.message;
@@ -1553,6 +1607,8 @@ async function applyCardConfig(){
 }
 
 F('cf-size').addEventListener('change', syncCardConfigJson);
+F('cf-tab').addEventListener('change', syncCardConfigJson);
+F('cf-hidden').addEventListener('change', syncCardConfigJson);
 F('cancelCardConfig').onclick = ()=>F('cardConfigOverlay').classList.remove('show');
 F('applyCardConfig').onclick = applyCardConfig;
 F('btn-cardform').onclick = ()=>{
@@ -1796,6 +1852,21 @@ function syncUrl(){
   history.replaceState(null, '', location.pathname + (qs ? '?' + qs : ''));
 }
 
+/** カードの既定タブ(tabキー省略時)。resourcesは常に'links'、monitorsは種別で決まる */
+function defaultTabOf(kind, item){
+  if(kind === 'resource') return 'links';
+  return isInfoMonitor(item) ? 'info' : 'status';
+}
+
+/** カードの実効タブ('custom'含む) */
+function tabOf(kind, item){
+  return item.tab || defaultTabOf(kind, item);
+}
+
+function isHidden(item){
+  return item.hidden === true;
+}
+
 function allMonitors(){
   return Array.isArray(config.monitors) ? config.monitors : [];
 }
@@ -1814,7 +1885,7 @@ function isInfoMonitor(m){
 
 /** 稼働状況タブの対象。チップの選択で絞り込む */
 function monitors(){
-  const list = allMonitors().filter(m => !isInfoMonitor(m));
+  const list = allMonitors().filter(m => !isHidden(m) && tabOf('monitor', m) === 'status');
   if(!activeMonitor.startsWith('type:')) return list;
   const t = activeMonitor.slice(5);
   return list.filter(m => monitorType(m) === t);
@@ -1822,10 +1893,15 @@ function monitors(){
 
 /** 情報タブの対象 */
 function infoMonitors(){
-  return allMonitors().filter(isInfoMonitor);
+  return allMonitors().filter(m => !isHidden(m) && tabOf('monitor', m) === 'info');
 }
 
-/** 取得対象。両方のタブぶんをまとめて取りに行く */
+/** カスタマイズタブへ退避されたカード(稼働状況・情報タブどちらにも出さない) */
+function customMonitors(){
+  return allMonitors().filter(m => tabOf('monitor', m) === 'custom');
+}
+
+/** 取得対象。両方のタブぶんをまとめて取りに行く（非表示・カスタマイズ行きのカードは取得しない） */
 function fetchTargets(){
   return monitors().concat(infoMonitors()).filter(m => !LOCAL_TYPES.includes(monitorType(m)));
 }
@@ -3884,6 +3960,83 @@ function renderMonitors(){
     '情報カードが登録されていません。上の「＋ 追加」からドル円・ルール・電卓のカードを登録できます。');
 }
 
+/* ---------- カスタマイズタブ: 全カード種別の一覧・タブ移動・非表示切替 ---------- */
+const TAB_LABELS = { links:'リンク', status:'稼働状況', info:'情報', custom:'カスタマイズ' };
+
+function allCustomizableCards(){
+  const rs = resources.map(r => ({ kind:'resource', id:r.id, item:r, name:r.title || r.id, kindLabel:'リンク' }));
+  const ms = allMonitors().map(m => ({ kind:'monitor', id:m.id, item:m, name:m.name || m.id,
+    kindLabel: isInfoMonitor(m) ? '情報' : '稼働状況' }));
+  return rs.concat(ms);
+}
+
+function renderCustomTab(){
+  const list = allCustomizableCards();
+  const wrap = document.getElementById('customList');
+  const empty = document.getElementById('customEmpty');
+  if(list.length === 0){
+    wrap.innerHTML = '';
+    empty.hidden = false;
+    return;
+  }
+  empty.hidden = true;
+
+  wrap.innerHTML = list.map(c=>{
+    const tab = tabOf(c.kind, c.item);
+    const hidden = isHidden(c.item);
+    const options = Object.keys(TAB_LABELS).map(k =>
+      `<option value="${k}" ${k===tab?'selected':''}>${TAB_LABELS[k]}</option>`).join('');
+    return `
+      <div class="custom-row${hidden ? ' is-hidden' : ''}" data-kind="${c.kind}" data-id="${esc(c.id)}">
+        <span class="cr-kind mono">${c.kindLabel}</span>
+        <span class="cr-name">${esc(c.name)}</span>
+        <select class="cr-tab">${options}</select>
+        <button class="cr-hide" data-toggle-hidden="1">${hidden ? '表示する' : '非表示にする'}</button>
+      </div>`;
+  }).join('');
+
+  wrap.querySelectorAll('.custom-row').forEach(row=>{
+    const kind = row.dataset.kind;
+    const id = row.dataset.id;
+    row.querySelector('.cr-tab').addEventListener('change', async e=>{
+      await setCardField(kind, id, 'tab', e.target.value);
+    });
+    row.querySelector('.cr-hide').addEventListener('click', async ()=>{
+      const list2 = kind === 'monitor' ? allMonitors() : resources;
+      const item = list2.find(x => x.id === id);
+      if(!item) return;
+      await setCardField(kind, id, 'hidden', !isHidden(item));
+    });
+  });
+}
+
+/** カスタマイズタブから、カードの1項目(tab/hidden)だけを更新して各所を再描画する */
+async function setCardField(kind, id, key, value){
+  if(kind === 'monitor'){
+    config.monitors = allMonitors().map(m=>{
+      if(m.id !== id) return m;
+      const next = { ...m, [key]: value };
+      if(key === 'tab' && value === defaultTabOf('monitor', m)) delete next.tab;
+      if(key === 'hidden' && !value) delete next.hidden;
+      return next;
+    });
+  }else{
+    resources = resources.map(r=>{
+      if(r.id !== id) return r;
+      const next = { ...r, [key]: value };
+      if(key === 'tab' && value === defaultTabOf('resource', r)) delete next.tab;
+      if(key === 'hidden' && !value) delete next.hidden;
+      return next;
+    });
+  }
+  await persistLocal();
+  render();
+  renderMonitors();
+  renderCustomTab();
+  if(F('s-json')) F('s-json').value = currentJSON();
+  if(F('s-monitors')) F('s-monitors').value = JSON.stringify(config.monitors, null, 2);
+}
+
 function paintMonitorGrid(gridId, emptyId, list, emptyText){
   const grid = document.getElementById(gridId);
   const empty = document.getElementById(emptyId);
@@ -4312,6 +4465,9 @@ document.getElementById('mainTabs').addEventListener('click', e=>{
   syncUrl();
   if(currentView === 'links'){
     stopMonitorLoop();
+  }else if(currentView === 'custom'){
+    stopMonitorLoop();
+    renderCustomTab();
   }else{
     renderMonitors();
     startMonitorLoop();
@@ -4320,7 +4476,8 @@ document.getElementById('mainTabs').addEventListener('click', e=>{
 
 window.addEventListener('popstate', ()=>{
   readUrlParams();
-  if(currentView !== 'links'){ renderMonitors(); startMonitorLoop(); }
+  if(currentView === 'custom'){ renderCustomTab(); }
+  else if(currentView !== 'links'){ renderMonitors(); startMonitorLoop(); }
 });
 
 document.getElementById('btn-refresh-monitor').onclick = ()=>{

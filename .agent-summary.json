@@ -1,30 +1,27 @@
 {
-  "issueNumber": 55,
-  "implementation": [
-    "リポジトリ直下に customer8/index.html を新規作成済み。/customer8 で画面上部に「顧客ページ8」という見出しを表示する",
-    "既存の /api/mail/mail.api.js を import し、サインイン不要のjsonプロバイダに固定のお知らせデータ(2件)を設定した上で normalizeAccounts と recent を実際に呼び出し、取得結果を一覧表示する処理を実装済み",
-    "既存の /api/mindmap2/mindmap2.js の renderMindmap を import し、サンプルの顧客情報Markdown(顧客A・顧客Bの担当と契約状況)を渡して実際にマインドマップ描画を実行する処理を実装済み",
-    "mail.formatTime を使って受信日時を整形表示するようにした",
-    "mail・mindmap2それぞれの処理について、成功時・失敗時の状態をページ上のステータス要素にテキストで表示するようにした",
-    "素のHTML / CSS / JavaScript（ES Modules）のみで実装しており、package.jsonやビルド設定は追加していない",
-    "コメントは日本語で記述している"
+  "issueNumber": 58,
+  "summary": "beta/dashboard を dashboard/ へ移動し、カスタマイズタブ機能(全カード種別のタブ移動・非表示/再表示)を追加しました。",
+  "implemented": [
+    "beta/dashboard 配下の全ファイル(index.html, index.json, README.md, service-api.md, clipgen-preview.html, gas/Code.gs, assets/以下)を dashboard/ へ移動し、beta/dashboard は削除しました。index.html内のindex.json参照等はindex.htmlからの相対パスのため、コード変更なしで移動後もそのまま動作します。",
+    "dashboard/README.md 内のパス例示(beta/dashboard → dashboard)を更新し、GAS側スクリプトプロパティGITHUB_BASE_PATHを既存でbeta/dashboardに設定している場合はdashboardへ変更してほしい旨の注記を追加しました(この設定変更自体はGoogle Apps Script管理画面側の作業であり、本リポジトリのコード変更対象外です)。",
+    "data/dashboard/index.json 内の thumb/preview がハードコードしていた https://.../tools/beta/dashboard/assets/... のURLを https://.../tools/dashboard/assets/... に一括置換しました(このファイルはdashboard本体とは別の、GitHub Pages公開用データです)。",
+    "dashboard/index.html にカスタマイズタブ(#mainTabs の4番目、data-view=\"custom\")を追加。resources(リンクカード)・config.monitors(稼働状況カード・情報タブのカードの両方を含む)の全カード種別を対象に、各カードへ tab(\"links\"|\"status\"|\"info\"|\"custom\", 省略時は種別ごとの既定タブ)と hidden(true/false, 省略時false)のキーを追加できるようにしました。",
+    "links/monitor/infoタブの描画ロジック(render(), monitors(), infoMonitors())をtab/hiddenでフィルタするよう変更。hidden:trueまたはtab:\"custom\"のカードは各タブに表示されず、カスタマイズタブにのみ一覧表示されます。",
+    "カスタマイズタブでは各カードの種別ラベル・名前・タブ移動セレクト・非表示/表示切替ボタンを表示し、変更は即座にlocalStorage/GAS用JSONへ反映されます。",
+    "既存の「カード設定」モーダル(歯車アイコン)にも「表示先タブ」セレクトと「非表示にする」チェックボックスを追加し、JSON直接編集でも tab/hidden を指定可能にしました。"
   ],
-  "verification": [
-    "customer8/index.html の内容を再読込し、要求どおりの実装（mail・mindmap2の実呼び出し、見出し表示、ステータス表示）が現存していることをソースコードの読み取りにより確認した",
-    "前回の作業時にファイルがUTF-8 BOMなしで保存されていることをファイル先頭バイトの確認により検証済み",
-    "mail.api.js（normalizeAccounts, recent, formatTime, jsonプロバイダのmessages）とmindmap2.js（renderMindmap）が実在するexport関数であることをソースコードとREADME.mdの読み取りにより確認済み",
-    "old/配下や他の既存ページ（customer5〜customer7を含む）には変更を加えていないことを確認した"
+  "verified": [
+    "Node.jsでdashboard/index.html内の<script>タグの中身をnew Function()に通し、JavaScript構文エラーがないことを確認しました。",
+    "簡易HTTPサーバー(python -m http.server)をリポジトリルートで起動し、http://127.0.0.1:8934/dashboard/index.html (200 OK, 約202KB) と http://127.0.0.1:8934/dashboard/index.json (200 OK) が正しく取得できることを確認しました。移動後もファイルパスの解決に問題がないことを確認済みです。",
+    "beta/dashboard ディレクトリが削除され、dashboard/ 配下に index.html, index.json, README.md, service-api.md, clipgen-preview.html, gas/Code.gs, assets/(thumbs, previews) が揃っていることをファイル一覧で確認しました。"
   ],
-  "notPerformed": [
-    "ブラウザで実際に /customer8 を開いての表示確認は行っていない",
-    "mail.api.jsのrecent()呼び出しが実際にブラウザ上で正しく一覧を返すかの実機確認は行っていない",
-    "mindmap2のrenderMindmapによるCDN(d3, markmap-lib, markmap-view)読み込みおよび描画動作の実機確認は行っていない",
-    "ブラウザの開発者コンソールでのエラー有無の確認は行っていない"
+  "notImplemented": [
+    "実際のブラウザでのカスタマイズタブのクリック操作・GAS連携込みの動作確認は行っていません(GASのURL設定や外部Notion連携が必要なため、ローカル静的配信での構文・パス確認のみ実施)。",
+    "GAS側のスクリプトプロパティGITHUB_BASE_PATHの実際の変更は本リポジトリ外の作業のため対応していません。README内に注意書きのみ追加しています。",
+    "既存の運用で既にbeta/dashboardのURLをブックマーク・埋め込みしている箇所がある場合、リンク切れになります(今回は「移動して旧パスは削除」という指示に基づく対応です)。"
   ],
   "notes": [
-    "本Issueは前回のTeamsやり取りで既に「mailとmindmap2のapiを使って画面を作って」という回答を得ており、customer8/index.htmlはその方針に沿って実装済みであることを再確認した。今回新たなコード変更は行っていない",
-    "mailはサインイン不要のjsonプロバイダに固定データを持たせているため秘密情報や外部認証情報は一切コードに含まれていない",
-    "mindmap2側はCDNからライブラリを読み込むため、オフライン環境や社内ネットワーク制限がある場合は描画に失敗する可能性がある。その場合は画面上のステータス表示にエラー内容が出るようにしている",
-    "実機でのブラウザ確認およびコンソールエラーの確認を承認者側で実施いただく必要がある"
+    "tab/hiddenキーは省略可能で、省略時は従来通りの挙動(resourcesはlinksタブ、稼働状況系monitorはstatusタブ、INFO_TYPES(fx/fxpos/rule/calc/schedule/mail/minutes)のmonitorはinfoタブに表示)になるため、既存のindex.json(公開データ)は変更なしでそのまま動作します。",
+    "カスタマイズタブへ移動したmonitorカード(tab:\"custom\")は、稼働状況・情報タブに表示されなくなるだけでなく、定期取得(fetchTargets)の対象からも除外されます。"
   ]
 }
