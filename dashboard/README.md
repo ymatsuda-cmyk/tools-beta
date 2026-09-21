@@ -22,10 +22,10 @@ GAS はコミット先をすべてそのディレクトリ配下（`dashboard/in
 `dashboard/assets/...`）に切り替えます。ダッシュボード側の設定や
 `index.json` 内のパスは、これまで通り `index.html` からの相対パスのままで構いません。
 
-> 2026年、`beta/dashboard/` から `dashboard/` へ配置場所を変更しました。既存の
-> GAS プロジェクトでスクリプトプロパティ `GITHUB_BASE_PATH` に `beta/dashboard` を
-> 設定している場合は、`dashboard` に変更してください（この設定変更はGoogle Apps
-> Script管理画面側の作業で、本リポジトリのコード変更の対象外です）。
+※ 本ダッシュボードは `beta/dashboard/` から `dashboard/` へ移動しました。
+GAS のスクリプトプロパティ `GITHUB_BASE_PATH` を以前 `beta/dashboard` に
+設定していた場合は、`dashboard` へ変更してください（この設定変更自体は
+GAS の管理画面側の作業で、本リポジトリのコード変更対象ではありません）。
 
 ---
 
