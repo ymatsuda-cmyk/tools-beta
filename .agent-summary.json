@@ -1,0 +1,26 @@
+{
+  "issueNumber": 62,
+  "summaryText": "Issue #62「customer8ページを追加してください」を実装しました。リポジトリ直下にcustomer8/index.htmlを新規作成し、画面中央に「サンプルページ」と表示するとともに、Teamsの回答指示（minutes以外の既存APIモジュールを使う）に基づきapi/schedule/schedule.api.jsのtoday()関数を、provider:'json'（サインイン不要のその場データ）で呼び出し、取得件数を画面下部に補足表示する構成としました。素のHTML/CSS/JavaScriptのみで実装し、外部フレームワークやビルド設定は追加していません。ローカルHTTPサーバーでの配信確認、JavaScript構文チェック、依頼で指定された文字化け文字（繧・繝・縺）の混入有無チェックまで行い、いずれも問題ありませんでした。",
+  "implementation": [
+    "customer8/index.html を新規作成。settings/index.htmlの構成（画面中央にテキストを表示するシンプルなページ）を踏襲し、body中央にid=\"app\"で「サンプルページ」という文字列を表示",
+    "Teamsの回答（『別の既存APIモジュールを指定する（minutes以外）』）に基づき、api/schedule/schedule.api.jsのtoday()関数を選定して利用。理由は、provider:'json'を指定するとOutlookへのサインイン・共有トークンが不要で、その場に埋め込んだサンプル予定データから今日の予定を集計でき、単純なサンプルページの用途に最も適していたため（api/mail・api/schedule共にOutlook利用時はMSAL認証が必須だが、json providerならサインイン不要。api/updateclipはclipstockの実行系APIで表示用途に不向き、api/mindmap・api/mindmap2はAPIというよりアプリ本体そのもの）",
+    "customer8/index.htmlにtype=\"module\"のscriptを追加し、import('/api/schedule/schedule.api.js')でnormalizeAccounts()によりprovider:'json'のサンプル予定（本日の日付でallDayイベント1件）を用意し、today()を呼び出して取得できた予定件数を画面下部のid=\"apiStatus\"要素に表示。取得に失敗した場合もエラーメッセージを表示し、画面中央の「サンプルページ」表示自体は常に成立する構成にした",
+    "コメントは日本語で記述し、UTF-8（BOMなし）で保存"
+  ],
+  "verification": [
+    "Node.jsのnew Function()によるcustomer8/index.html内JavaScriptの構文チェックでエラーなしを確認",
+    "customer8/index.htmlがBOMなしUTF-8で保存されていることをバイト列で確認",
+    "依頼で指定された文字化け文字（繧・繝・縺）がcustomer8/index.html内に含まれていないことをテキスト検索で確認",
+    "ローカルHTTPサーバー（python -m http.server）を起動し、customer8/index.html・api/schedule/schedule.api.js・api/schedule/providers/json.jsがいずれも200 OKで配信されることを確認"
+  ],
+  "notPerformed": [
+    "実ブラウザでcustomer8/index.htmlを開いての手動確認（画面中央の表示・API連携結果の表示）は未実施",
+    "ブラウザの開発者コンソールでのエラー有無確認は未実施",
+    "git操作（commit/push/PR作成）は実施していない"
+  ],
+  "notes": [
+    "customer8ページはapi/schedule/schedule.api.jsのtoday()（provider:'json'によるサインイン不要の予定取得）を利用する実装とした。別のAPI（api/mail・api/updateclip・api/mindmap・api/mindmap2等）を利用すべきという意図であった場合は再度ご指示ください",
+    "provider:'json'はその場に埋め込んだサンプルデータのみを参照するため外部通信は発生せず、動作の再現性が高い構成としている",
+    "承認後、実ブラウザでの表示・コンソールエラー確認を推奨します"
+  ]
+}

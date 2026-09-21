@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>customer8 - tools</title>
+<style>
+  /* シンプルなサンプルページ。settings/index.html と同じ構成に合わせている */
+  body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    background:#16202b;
+    color:#cbd8e4;
+    font-family:-apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+    text-align:center;
+  }
+  #app{
+    font-size:2rem;
+  }
+  #apiStatus{
+    font-size:0.85rem;
+    color:#7d8ea3;
+    min-height:1.2em;
+  }
+</style>
+</head>
+<body>
+  <div id="app">サンプルページ</div>
+  <!-- /api（api/schedule/schedule.api.js）から取得した予定件数を補足表示する -->
+  <div id="apiStatus">API読み込み中…</div>
+
+  <script type="module">
+    // /api 配下の予定取得API（api/schedule/schedule.api.js）を利用する。
+    // provider: 'json' を指定するとサインイン不要で、その場にあるサンプル予定データから
+    // 今日の予定を集計できる（Outlookへの認証が要らないため、サンプルページに適している）。
+    const statusEl = document.getElementById('apiStatus');
+
+    (async () => {
+      try {
+        const schedule = await import('/api/schedule/schedule.api.js');
+        const accounts = schedule.normalizeAccounts([
+          {
+            id: 'sample',
+            label: 'サンプル予定表',
+            provider: 'json',
+            events: [
+              { title: 'サンプル予定', allDay: true, start: new Date().toISOString().slice(0, 10) }
+            ]
+          }
+        ]);
+        const { events } = await schedule.today(accounts);
+        statusEl.textContent = `/api 連携: 本日の予定 ${events.length} 件を取得しました`;
+      } catch (err) {
+        // 取得に失敗しても、画面中央の表示自体は成立させる
+        statusEl.textContent = '/api 連携: 取得できませんでした（' + err.message + '）';
+      }
+    })();
+  </script>
+</body>
+</html>

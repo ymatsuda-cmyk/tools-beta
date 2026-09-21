@@ -444,22 +444,6 @@
   }
   .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
   .status-line{font-size:11px;color:var(--text-muted);margin-bottom:14px;}
-
-  /* カスタマイズタブ（カード一覧・タブ移動・表示切替） */
-  .custom-list{display:flex;flex-direction:column;gap:8px;}
-  .custom-row{
-    display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--border);
-    border-radius:var(--radius);padding:10px 12px;
-  }
-  .custom-row.is-hidden{opacity:0.55;}
-  .custom-row .custom-kind{font-size:11px;color:var(--text-muted);width:64px;flex-shrink:0;}
-  .custom-row .custom-name{font-size:13px;color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .custom-row select{
-    background:var(--surface-2);border:1px solid var(--border);border-radius:7px;
-    color:var(--text);font-size:12px;padding:6px 8px;
-  }
-  .custom-row .icon-btn{padding:6px 10px;font-size:12px;}
-  .custom-empty{text-align:center;padding:60px 20px;color:var(--text-muted);font-size:13px;}
 </style>
 </head>
 <body>
@@ -476,7 +460,6 @@
     <button data-view="links" class="active">リンク</button>
     <button data-view="monitor">稼働状況</button>
     <button data-view="info">情報</button>
-    <button data-view="custom">カスタマイズ</button>
   </div>
 
   <div class="status-line mono" id="statusLine">読み込み中…</div>
@@ -521,16 +504,6 @@
     <div class="monitor-grid" id="infoGrid"></div>
     <div class="monitor-empty" id="infoEmpty">
       情報カードが登録されていません。上の「＋ 追加」からドル円・ルール・電卓のカードを登録できます。
-    </div>
-  </div>
-
-  <div class="view" data-view="custom" hidden>
-    <p class="sub" style="margin:0 0 14px;color:var(--text-muted);font-size:12px;">
-      すべてのカードを一覧表示します。タブを移動したり、非表示にしたりできます。
-    </p>
-    <div class="custom-list" id="customList"></div>
-    <div class="custom-empty" id="customEmpty" style="display:none;">
-      カードが登録されていません。
     </div>
   </div>
 </div>
@@ -988,18 +961,6 @@
       </select>
     </div>
     <div class="field">
-      <label>表示先タブ</label>
-      <select id="cf-tab">
-        <option value="links">リンク</option>
-        <option value="status">稼働状況</option>
-        <option value="info">情報</option>
-        <option value="custom">カスタマイズ（非表示扱い）</option>
-      </select>
-    </div>
-    <div class="field">
-      <label><input type="checkbox" id="cf-hidden"> このカードを非表示にする</label>
-    </div>
-    <div class="field">
       <label>カードJSON</label>
       <textarea id="cf-json" spellcheck="false"></textarea>
       <div class="err" id="err-cardjson">JSONの形式が正しくありません</div>
@@ -1271,8 +1232,7 @@ function render(){
   const list = resources.filter(r=>{
     const okCat = activeCategory==='すべて' || r.category===activeCategory;
     const okQ = !q || (r.title||'').toLowerCase().includes(q);
-    const okTab = tabOf('resource', r) === 'links' && !isHidden(r);
-    return okCat && okQ && okTab;
+    return okCat && okQ;
   });
 
   const grid = document.getElementById('grid');
@@ -1852,27 +1812,9 @@ function isInfoMonitor(m){
   return INFO_TYPES.includes(monitorType(m));
 }
 
-/**
- * カスタマイズタブ用のヘルパー
- *   tab   … 表示先タブ。省略時は種別ごとの既定タブ（links/status/info）
- *   hidden… true のときだけキーを保持し、非表示にする
- */
-function defaultTabOf(kind, item){
-  if(kind === 'resource') return 'links';
-  return isInfoMonitor(item) ? 'info' : 'status';
-}
-
-function tabOf(kind, item){
-  return item.tab || defaultTabOf(kind, item);
-}
-
-function isHidden(item){
-  return item.hidden === true;
-}
-
 /** 稼働状況タブの対象。チップの選択で絞り込む */
 function monitors(){
-  const list = allMonitors().filter(m => !isInfoMonitor(m) && tabOf('monitor', m) === 'status' && !isHidden(m));
+  const list = allMonitors().filter(m => !isInfoMonitor(m));
   if(!activeMonitor.startsWith('type:')) return list;
   const t = activeMonitor.slice(5);
   return list.filter(m => monitorType(m) === t);
@@ -1880,10 +1822,10 @@ function monitors(){
 
 /** 情報タブの対象 */
 function infoMonitors(){
-  return allMonitors().filter(m => isInfoMonitor(m) && tabOf('monitor', m) === 'info' && !isHidden(m));
+  return allMonitors().filter(isInfoMonitor);
 }
 
-/** 取得対象。両方のタブぶんをまとめて取りに行く（カスタマイズタブに移動・非表示のものは除く） */
+/** 取得対象。両方のタブぶんをまとめて取りに行く */
 function fetchTargets(){
   return monitors().concat(infoMonitors()).filter(m => !LOCAL_TYPES.includes(monitorType(m)));
 }
