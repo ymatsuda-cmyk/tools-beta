@@ -1271,7 +1271,8 @@ function render(){
   const list = resources.filter(r=>{
     const okCat = activeCategory==='すべて' || r.category===activeCategory;
     const okQ = !q || (r.title||'').toLowerCase().includes(q);
-    return okCat && okQ;
+    const okTab = tabOf('resource', r) === 'links' && !isHidden(r);
+    return okCat && okQ && okTab;
   });
 
   const grid = document.getElementById('grid');
@@ -1879,10 +1880,10 @@ function monitors(){
 
 /** 情報タブの対象 */
 function infoMonitors(){
-  return allMonitors().filter(isInfoMonitor);
+  return allMonitors().filter(m => isInfoMonitor(m) && tabOf('monitor', m) === 'info' && !isHidden(m));
 }
 
-/** 取得対象。両方のタブぶんをまとめて取りに行く */
+/** 取得対象。両方のタブぶんをまとめて取りに行く（カスタマイズタブに移動・非表示のものは除く） */
 function fetchTargets(){
   return monitors().concat(infoMonitors()).filter(m => !LOCAL_TYPES.includes(monitorType(m)));
 }
