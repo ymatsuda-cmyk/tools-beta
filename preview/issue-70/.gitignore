@@ -1,0 +1,11 @@
+._*
+.DS_Store
+.Spotlight-V100
+.Trashes
+
+# Python
+__pycache__/
+*.pyc
+
+# Whisper
+whisper/__pycache__/
