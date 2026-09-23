@@ -1,0 +1,84 @@
+{
+  "defaultLabel": "whisper",
+  "speakerDbPath": "~/.plaud_speakers.json",
+  "normalizeDictPath": "normalize_dict.json",
+  "fillers": [
+    "えー",
+    "えーと",
+    "ええと",
+    "えっと",
+    "あー",
+    "あのー",
+    "そのー",
+    "まあその",
+    "なんていうか",
+    "はいはい",
+    "うーん"
+  ],
+  "engines": [
+    {
+      "id": "w",
+      "label": "whisper",
+      "type": "whisper",
+      "model": "mlx-community/whisper-large-v3-turbo",
+      "language": "ja",
+      "decode": {
+        "condition_on_previous_text": false,
+        "temperature": [
+          0.0,
+          0.2,
+          0.4,
+          0.6,
+          0.8,
+          1.0
+        ],
+        "compression_ratio_threshold": 2.4,
+        "logprob_threshold": -1.0,
+        "no_speech_threshold": 0.6,
+        "hallucination_silence_threshold": 2.0
+      },
+      "initialPromptFromDict": true
+    },
+    {
+      "id": "w3",
+      "label": "whisper-large-v3",
+      "type": "whisper",
+      "model": "mlx-community/whisper-large-v3-mlx",
+      "language": "ja",
+      "decode": {
+        "condition_on_previous_text": false,
+        "temperature": [
+          0.0,
+          0.2,
+          0.4,
+          0.6,
+          0.8,
+          1.0
+        ],
+        "compression_ratio_threshold": 2.4,
+        "logprob_threshold": -1.0,
+        "no_speech_threshold": 0.6,
+        "hallucination_silence_threshold": 2.0
+      },
+      "initialPromptFromDict": true
+    },
+    {
+      "id": "q",
+      "label": "qwen3-asr",
+      "type": "qwen3-asr",
+      "model": "Qwen/Qwen3-ASR-1.7B",
+      "language": "Japanese",
+      "diarize": false,
+      "minSpeakers": 2,
+      "maxSpeakers": 8,
+      "gapSec": 0.7,
+      "maxChars": 60,
+      "diarization": {
+        "enabled": true,
+        "namePrefix": "担当者",
+        "matchThreshold": 0.72,
+        "minSegmentSec": 0.7
+      }
+    }
+  ]
+}
