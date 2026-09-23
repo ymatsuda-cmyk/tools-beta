@@ -65,8 +65,9 @@
   }
   .add-btn:hover{background:rgba(95,168,160,0.26);}
 
-  .main-tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:3px;margin-bottom:14px;width:fit-content;}
-  .main-tabs button{background:transparent;border:none;color:var(--text-muted);font-size:13px;padding:7px 16px;border-radius:7px;cursor:pointer;}
+  .main-tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:3px;margin-bottom:14px;width:fit-content;max-width:100%;overflow-x:auto;}
+  .main-tabs button{flex:0 0 auto;background:transparent;border:none;color:var(--text-muted);font-size:13px;padding:7px 16px;border-radius:7px;cursor:pointer;}
+  .main-tabs .add-tab{font-size:18px;line-height:1;padding:6px 10px;}
   .main-tabs button.active{background:var(--surface-2);color:var(--text);}
   .view[hidden]{display:none;}
 
@@ -469,6 +470,7 @@
     <button data-view="links" class="active">リンク</button>
     <button data-view="monitor">稼働状況</button>
     <button data-view="info">情報</button>
+    <button type="button" class="add-tab" id="addMainTab" title="タブを追加" aria-label="タブを追加">＋</button>
   </div>
 
   <div class="status-line mono" id="statusLine">読み込み中…</div>
@@ -516,6 +518,22 @@
     </div>
   </div>
   <div id="customViews"></div>
+</div>
+
+<!-- タブ追加モーダル -->
+<div class="overlay" id="tabOverlay">
+  <div class="modal" style="max-width:420px;">
+    <h2>タブを追加</h2>
+    <div class="field">
+      <label>タブ名</label>
+      <input type="text" id="newTabLabel" maxlength="40" placeholder="例: カスタマイズ">
+      <div class="err" id="err-tab-label">タブ名を入力してください</div>
+    </div>
+    <div class="modal-actions">
+      <button class="icon-btn" id="cancelAddTab">キャンセル</button>
+      <button class="add-btn" id="saveAddTab">追加</button>
+    </div>
+  </div>
 </div>
 
 <!-- 追加・編集モーダル -->
@@ -1168,15 +1186,15 @@ function renderTabStructure(){
     button.dataset.customTab = 'true';
     button.textContent = tab.label;
     button.classList.toggle('active', currentView === tab.id);
-    mainTabs.appendChild(button);
+    mainTabs.insertBefore(button, document.getElementById('addMainTab'));
   });
 
   const customViews = document.getElementById('customViews');
   customViews.innerHTML = tabs.map(tab=>`
     <div class="view" data-view="${esc(tab.id)}" hidden>
       <div class="grid custom-resource-grid" data-custom-resources="${esc(tab.id)}"></div>
-      <div class="monitor-grid" data-custom-monitors="${esc(tab.id)}"></div>
-      <div class="monitor-empty" data-custom-empty="${esc(tab.id)}">このタブに表示するカードはありません。</div>
+      <div class="monitor-grid" id="customMonitorGrid-${esc(tab.id)}"></div>
+      <div class="monitor-empty" id="customEmpty-${esc(tab.id)}">このタブに表示するカードはありません。</div>
     </div>`).join('');
   if(!['links','monitor','info',...tabs.map(tab=>tab.id)].includes(currentView)) currentView = 'links';
   document.querySelectorAll('.view').forEach(view=>{ view.hidden = view.dataset.view !== currentView; });
@@ -1294,6 +1312,7 @@ function render(){
   const grid = document.getElementById('grid');
   if(list.length===0){
     grid.innerHTML = `<div class="empty"><div class="big">まだリンクがありません</div><p>右上の「追加」から、アプリ・資料・動画を登録できます</p></div>`;
+    renderCustomTabs();
     return;
   }
   grid.innerHTML = list.map(r=>`
@@ -2638,7 +2657,7 @@ function wireCalcVars(card){
    ============================================================ */
 
 /* 更新したのに古いものを掋むことがあるので、読み込みのたびにURLを変える */
-const CLIPGEN_MODULE = new URL('../../api/updateclip/updateclip.js', location.href).href
+const CLIPGEN_MODULE = new URL('../api/updateclip/updateclip.js', location.href).href
   + '?t=' + Date.now();
 
 /* カードごとの状態。定期更新で描き直されても消えないよう、DOMの外に置く */
@@ -3017,7 +3036,7 @@ async function runClipgen(m){
 
 /* ---------- 今日の予定 ---------- */
 
-const SCHEDULE_MODULE = new URL('../../api/schedule/schedule.api.js', location.href).href;
+const SCHEDULE_MODULE = new URL('../api/schedule/schedule.api.js', location.href).href;
 
 /* カードごとの状態。定期更新で描き直されても消えないよう、DOMの外に置く */
 const scheduleState = {};
@@ -3293,7 +3312,7 @@ async function scheduleAuth(m, accountId, action){
 
 /* ---------- メール受信 ---------- */
 
-const MAIL_MODULE = new URL('../../api/mail/mail.api.js', location.href).href;
+const MAIL_MODULE = new URL('../api/mail/mail.api.js', location.href).href;
 
 /* カードごとの状態。定期更新で描き直されても消えないよう、DOMの外に置く */
 const mailState = {};
@@ -3593,7 +3612,7 @@ async function mailAuth(m, accountId, action){
 
 /* ---------- 議事録 ---------- */
 
-const MINUTES_MODULE = new URL('../../api/minutes/minutes.api.js', location.href).href;
+const MINUTES_MODULE = new URL('../api/minutes/minutes.api.js', location.href).href;
 
 /* カードごとの状態。定期更新で描き直されても消えないよう、DOMの外に置く */
 const minutesState = {};
@@ -4031,11 +4050,9 @@ function renderMonitors(){
     const view = document.querySelector(`[data-view="${CSS.escape(tab.id)}"]`);
     if(!view) return;
     const list = allMonitors().filter(m=>DashboardConfig.isVisible(m) && monitorTab(m) === tab.id);
-    const grid = view.querySelector('[data-custom-monitors]');
-    grid.innerHTML = list.map(m=>renderMonitorCard(m, monitorSnapshots[m.id])).join('');
-    const empty = view.querySelector('[data-custom-empty]');
     const resourceCount = resources.filter(r=>DashboardConfig.isVisible(r) && DashboardConfig.cardTab(r, 'links', configuredTabs()) === tab.id).length;
-    empty.hidden = list.length + resourceCount > 0;
+    paintMonitorGrid('customMonitorGrid-' + tab.id, 'customEmpty-' + tab.id, list,
+      resourceCount > 0 ? '' : 'このタブに表示するカードはありません。');
   });
 }
 
@@ -4483,7 +4500,7 @@ document.addEventListener('click', e=>{
 
 document.getElementById('mainTabs').addEventListener('click', e=>{
   const btn = e.target.closest('button');
-  if(!btn) return;
+  if(!btn || !btn.dataset.view) return;
   currentView = btn.dataset.view;
   document.querySelectorAll('#mainTabs button').forEach(b=>b.classList.toggle('active', b===btn));
   document.querySelectorAll('.view').forEach(v=>{ v.hidden = v.dataset.view !== currentView; });
@@ -4495,6 +4512,29 @@ document.getElementById('mainTabs').addEventListener('click', e=>{
     renderMonitors();
     startMonitorLoop();
   }
+});
+
+const tabOverlay = document.getElementById('tabOverlay');
+
+document.getElementById('addMainTab').addEventListener('click', ()=>{
+  F('newTabLabel').value = '';
+  F('err-tab-label').style.display = 'none';
+  tabOverlay.classList.add('show');
+  F('newTabLabel').focus();
+});
+
+document.getElementById('cancelAddTab').addEventListener('click', ()=>tabOverlay.classList.remove('show'));
+
+document.getElementById('saveAddTab').addEventListener('click', async ()=>{
+  const label = F('newTabLabel').value.trim();
+  if(!label){ F('err-tab-label').style.display = 'block'; return; }
+  const tab = { id:'tab-' + Date.now(), label };
+  config.tabs = configuredTabs().concat(tab);
+  await persistLocal();
+  tabOverlay.classList.remove('show');
+  renderTabStructure();
+  renderCustomTabs();
+  document.querySelector(`#mainTabs button[data-view="${tab.id}"]`)?.click();
 });
 
 window.addEventListener('popstate', ()=>{
