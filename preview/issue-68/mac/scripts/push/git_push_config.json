@@ -1,0 +1,46 @@
+[
+  {
+    "id": "news-brief-data",
+    "description": "news-brief データフォルダ",
+    "enabled": true,
+    "source_folder": "/Users/yuya/Claude/app/news-brief/data/",
+    "repository": "git@github.com:ymatsuda-cmyk/tools.git",
+    "repo_subfolder": "news-brief/data",
+    "branch": "main",
+    "commit_message": "auto: update news-brief data",
+    "remote_name": "origin"
+  },
+  {
+    "id": "dashboard-data",
+    "description": "dashboard データフォルダ",
+    "enabled": true,
+    "source_folder": "/Volumes/SanDisk/30_app/claude/dashboard/data/",
+    "repository": "git@github.com:ymatsuda-cmyk/tools.git",
+    "repo_subfolder": "addin/Scenario/dashboard",
+    "branch": "main",
+    "commit_message": "auto: update dashboard data",
+    "remote_name": "origin"
+  },
+  {
+    "id": "report-data",
+    "description": "report データフォルダ",
+    "enabled": true,
+    "source_folder": "/Volumes/SanDisk/30_app/claude/状況取得/out/",
+    "repository": "git@github.com:ymatsuda-cmyk/tools.git",
+    "repo_subfolder": "report",
+    "branch": "main",
+    "commit_message": "auto: update report data",
+    "remote_name": "origin"
+  },
+  {
+    "id": "clipstock-data",
+    "description": "動画ナレッジ(clipstock)の一覧JSON。build_clipstock_json.py の --out と source_folder を合わせること",
+    "enabled": true,
+    "source_folder": "/Users/yuya/Claude/app/clipstock/data/",
+    "repository": "git@github.com:ymatsuda-cmyk/tools.git",
+    "repo_subfolder": "data/clipstock",
+    "branch": "main",
+    "commit_message": "auto: update clipstock index",
+    "remote_name": "origin"
+  }
+]
