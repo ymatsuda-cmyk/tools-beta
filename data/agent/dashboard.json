@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T18:40:30+09:00",
+  "generatedAt": "2026-09-24T18:41:13+09:00",
   "repository": "ymatsuda-cmyk/tools",
   "issues": [
     {
@@ -343,6 +343,24 @@
         "oldestAt": null
       },
       "archived": true
+    },
+    {
+      "number": 79,
+      "title": "Issue",
+      "status": "implementing",
+      "statusLabel": "実装中",
+      "error": "",
+      "updatedAt": "2026-09-24T18:40:52+09:00",
+      "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/79",
+      "pullRequestUrl": null,
+      "previewUrl": null,
+      "pullRequestNumber": null,
+      "branch": "feature/issue-79-issue",
+      "pendingNotifications": {
+        "count": 2,
+        "oldestAt": "2026-09-24T18:40:43+09:00"
+      },
+      "archived": false
     }
   ]
 }
