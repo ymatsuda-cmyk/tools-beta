@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T11:39:28+09:00",
+  "generatedAt": "2026-09-24T11:41:37+09:00",
   "issues": [
     {
       "number": 1,
@@ -193,8 +193,8 @@
     {
       "number": 77,
       "title": "issue",
-      "status": "implementing",
-      "updatedAt": "2026-09-24T11:33:26+09:00",
+      "status": "preview_deploying",
+      "updatedAt": "2026-09-24T11:41:18+09:00",
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/77",
       "pullRequestUrl": null,
       "previewUrl": null
