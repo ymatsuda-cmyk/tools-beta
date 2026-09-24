@@ -1,169 +1,154 @@
 {
-  "generatedAt": "2026-09-24T15:45:16+09:00",
+  "generatedAt": "2026-09-24T15:45:59+09:00",
   "issues": [
     {
-      "number": 1,
-      "title": "t",
-      "status": "failed",
-      "statusLabel": "異常終了",
-      "error": "implement_agent exit code 1",
-      "updatedAt": "2026-09-22T19:08:30",
-      "issueUrl": null,
-      "pullRequestUrl": null,
-      "previewUrl": null,
-      "pendingNotifications": {
-        "count": 0,
-        "oldestAt": null
-      }
-    },
-    {
-      "number": 4,
-      "title": "(タイトルなし)",
+      "number": 50,
+      "title": "customer5ページを追加してください",
       "status": "completed",
       "statusLabel": "完了",
       "error": "",
-      "updatedAt": "2026-09-22T16:09:11",
-      "issueUrl": null,
-      "pullRequestUrl": null,
+      "updatedAt": "2026-09-20T21:07:35.126931",
+      "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/50",
+      "pullRequestUrl": "https://github.com/ymatsuda-cmyk/tools/pull/51",
       "previewUrl": null,
       "pendingNotifications": {
-        "count": 2,
-        "oldestAt": "2026-09-22T16:08:02+09:00"
+        "count": 4,
+        "oldestAt": "2026-09-20T20:58:53+09:00"
       }
     },
     {
-      "number": 5,
-      "title": "(タイトルなし)",
-      "status": "failed",
-      "statusLabel": "異常終了",
-      "error": "implement_agent exit code 1",
-      "updatedAt": "2026-09-22T19:08:31",
-      "issueUrl": null,
+      "number": 52,
+      "title": "customer6ページを追加してください",
+      "status": "completed",
+      "statusLabel": "完了",
+      "error": "",
+      "updatedAt": "2026-09-20T22:01:55.675637",
+      "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/52",
+      "pullRequestUrl": "https://github.com/ymatsuda-cmyk/tools/pull/53",
+      "previewUrl": null,
+      "pendingNotifications": {
+        "count": 4,
+        "oldestAt": "2026-09-20T21:54:23+09:00"
+      }
+    },
+    {
+      "number": 54,
+      "title": "customer7ページを追加してください",
+      "status": "daemon_error",
+      "statusLabel": "daemon_error",
+      "error": "",
+      "updatedAt": "2026-09-20T22:27:24.359928",
+      "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/54",
       "pullRequestUrl": null,
       "previewUrl": null,
       "pendingNotifications": {
         "count": 1,
-        "oldestAt": "2026-09-22T16:08:05+09:00"
+        "oldestAt": "2026-09-20T22:22:26+09:00"
       }
     },
     {
-      "number": 7,
-      "title": "(タイトルなし)",
+      "number": 55,
+      "title": "customer8ページを追加してください",
       "status": "completed",
       "statusLabel": "完了",
       "error": "",
-      "updatedAt": "2026-09-22T16:09:22",
-      "issueUrl": null,
-      "pullRequestUrl": null,
+      "updatedAt": "2026-09-20T23:58:19.909086",
+      "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/55",
+      "pullRequestUrl": "https://github.com/ymatsuda-cmyk/tools/pull/56",
       "previewUrl": null,
       "pendingNotifications": {
-        "count": 0,
-        "oldestAt": null
+        "count": 5,
+        "oldestAt": "2026-09-20T23:22:37+09:00"
       }
     },
     {
-      "number": 8,
-      "title": "却下されたIssue",
-      "status": "rejected",
-      "statusLabel": "却下",
+      "number": 57,
+      "title": "Teams開発依頼",
+      "status": "daemon_error",
+      "statusLabel": "daemon_error",
       "error": "",
-      "updatedAt": "2026-09-22T16:09:23",
-      "issueUrl": null,
+      "updatedAt": "2026-09-21T01:05:08.424628",
+      "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/57",
       "pullRequestUrl": null,
       "previewUrl": null,
       "pendingNotifications": {
-        "count": 0,
-        "oldestAt": null
+        "count": 1,
+        "oldestAt": "2026-09-21T00:04:48+09:00"
       }
     },
     {
-      "number": 12,
-      "title": "(タイトルなし)",
-      "status": "failed",
-      "statusLabel": "異常終了",
-      "error": "implement_agent exit code 1",
-      "updatedAt": "2026-09-22T19:08:32",
-      "issueUrl": null,
+      "number": 58,
+      "title": "dashboardの場所を移動",
+      "status": "waiting_approval",
+      "statusLabel": "承認待ち",
+      "error": "",
+      "updatedAt": "2026-09-21T17:15:28.353292",
+      "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/58",
       "pullRequestUrl": null,
       "previewUrl": null,
       "pendingNotifications": {
-        "count": 0,
-        "oldestAt": null
+        "count": 10,
+        "oldestAt": "2026-09-21T01:05:15+09:00"
       }
     },
     {
-      "number": 30,
-      "title": "(タイトルなし)",
-      "status": "failed",
-      "statusLabel": "異常終了",
-      "error": "implement_agent exit code 1",
-      "updatedAt": "2026-09-22T19:08:50",
-      "issueUrl": null,
+      "number": 59,
+      "title": "dashboardの場所を移動2",
+      "status": "waiting_approval",
+      "statusLabel": "承認待ち",
+      "error": "",
+      "updatedAt": "2026-09-21T19:39:33.846119",
+      "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/59",
       "pullRequestUrl": null,
       "previewUrl": null,
       "pendingNotifications": {
-        "count": 0,
-        "oldestAt": null
+        "count": 5,
+        "oldestAt": "2026-09-21T18:47:42+09:00"
       }
     },
     {
-      "number": 31,
-      "title": "(タイトルなし)",
-      "status": "failed",
-      "statusLabel": "異常終了",
-      "error": "implement_agent exit code 1",
-      "updatedAt": "2026-09-22T19:08:51",
-      "issueUrl": null,
+      "number": 60,
+      "title": "dashboardの場所を移動3",
+      "status": "encoding_error",
+      "statusLabel": "encoding_error",
+      "error": "",
+      "updatedAt": "2026-09-21T20:11:57.435062",
+      "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/60",
       "pullRequestUrl": null,
       "previewUrl": null,
       "pendingNotifications": {
-        "count": 0,
-        "oldestAt": null
+        "count": 3,
+        "oldestAt": "2026-09-21T19:57:17+09:00"
       }
     },
     {
-      "number": 32,
-      "title": "(タイトルなし)",
-      "status": "failed",
-      "statusLabel": "異常終了",
-      "error": "implement_agent exit code 1",
-      "updatedAt": "2026-09-22T19:08:53",
-      "issueUrl": null,
+      "number": 61,
+      "title": "customer7ページを追加してください",
+      "status": "implementation_failed",
+      "statusLabel": "implementation_failed",
+      "error": "",
+      "updatedAt": "2026-09-21T22:17:30.114223",
+      "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/61",
       "pullRequestUrl": null,
       "previewUrl": null,
       "pendingNotifications": {
-        "count": 0,
-        "oldestAt": null
+        "count": 2,
+        "oldestAt": "2026-09-21T22:02:19+09:00"
       }
     },
     {
-      "number": 33,
-      "title": "(タイトルなし)",
-      "status": "failed",
-      "statusLabel": "異常終了",
-      "error": "implement_agent exit code 1",
-      "updatedAt": "2026-09-22T19:09:11",
-      "issueUrl": null,
+      "number": 62,
+      "title": "customer8ページを追加してください",
+      "status": "waiting_approval",
+      "statusLabel": "承認待ち",
+      "error": "",
+      "updatedAt": "2026-09-22T00:08:51.076944",
+      "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/62",
       "pullRequestUrl": null,
       "previewUrl": null,
       "pendingNotifications": {
-        "count": 0,
-        "oldestAt": null
-      }
-    },
-    {
-      "number": 34,
-      "title": "(タイトルなし)",
-      "status": "failed",
-      "statusLabel": "異常終了",
-      "error": "implement_agent exit code 1",
-      "updatedAt": "2026-09-22T19:09:12",
-      "issueUrl": null,
-      "pullRequestUrl": null,
-      "previewUrl": null,
-      "pendingNotifications": {
-        "count": 0,
-        "oldestAt": null
+        "count": 68,
+        "oldestAt": "2026-09-21T22:59:30+09:00"
       }
     },
     {
@@ -239,21 +224,6 @@
       "pendingNotifications": {
         "count": 4,
         "oldestAt": "2026-09-23T12:51:20+09:00"
-      }
-    },
-    {
-      "number": 70,
-      "title": "(タイトルなし)",
-      "status": "failed",
-      "statusLabel": "異常終了",
-      "error": "branch未設定",
-      "updatedAt": "2026-09-23T21:38:09+09:00",
-      "issueUrl": null,
-      "pullRequestUrl": null,
-      "previewUrl": null,
-      "pendingNotifications": {
-        "count": 12,
-        "oldestAt": "2026-09-23T16:54:19+09:00"
       }
     },
     {
