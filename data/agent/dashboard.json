@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T13:48:29+09:00",
+  "generatedAt": "2026-09-24T13:49:14+09:00",
   "issues": [
     {
       "number": 1,
@@ -193,11 +193,11 @@
     {
       "number": 77,
       "title": "issue",
-      "status": "preview_deploying",
-      "updatedAt": "2026-09-24T13:48:12+09:00",
+      "status": "waiting_approval",
+      "updatedAt": "2026-09-24T13:48:20+09:00",
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/77",
       "pullRequestUrl": "https://github.com/ymatsuda-cmyk/tools/pull/78",
-      "previewUrl": "https://ymatsuda-cmyk.github.io/tools-beta/preview/issue-77/beta/clipstock/"
+      "previewUrl": "https://ymatsuda-cmyk.github.io/tools-beta/preview/issue-77/clipstock/"
     }
   ]
 }
