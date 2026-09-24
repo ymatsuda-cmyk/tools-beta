@@ -1,5 +1,6 @@
 {
-  "generatedAt": "2026-09-24T15:54:48+09:00",
+  "generatedAt": "2026-09-24T15:56:04+09:00",
+  "repository": "ymatsuda-cmyk/tools",
   "issues": [
     {
       "number": 50,
@@ -11,10 +12,13 @@
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/50",
       "pullRequestUrl": "https://github.com/ymatsuda-cmyk/tools/pull/51",
       "previewUrl": null,
+      "pullRequestNumber": null,
+      "branch": "issue-50-customer5",
       "pendingNotifications": {
         "count": 4,
         "oldestAt": "2026-09-20T20:58:53+09:00"
-      }
+      },
+      "archived": true
     },
     {
       "number": 52,
@@ -26,10 +30,13 @@
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/52",
       "pullRequestUrl": "https://github.com/ymatsuda-cmyk/tools/pull/53",
       "previewUrl": null,
+      "pullRequestNumber": null,
+      "branch": "issue-52-customer6",
       "pendingNotifications": {
         "count": 4,
         "oldestAt": "2026-09-20T21:54:23+09:00"
-      }
+      },
+      "archived": true
     },
     {
       "number": 54,
@@ -41,10 +48,13 @@
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/54",
       "pullRequestUrl": null,
       "previewUrl": null,
+      "pullRequestNumber": null,
+      "branch": "issue-54-customer7",
       "pendingNotifications": {
         "count": 1,
         "oldestAt": "2026-09-20T22:22:26+09:00"
-      }
+      },
+      "archived": true
     },
     {
       "number": 55,
@@ -56,10 +66,13 @@
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/55",
       "pullRequestUrl": "https://github.com/ymatsuda-cmyk/tools/pull/56",
       "previewUrl": null,
+      "pullRequestNumber": null,
+      "branch": "issue-55-customer8",
       "pendingNotifications": {
         "count": 5,
         "oldestAt": "2026-09-20T23:22:37+09:00"
-      }
+      },
+      "archived": true
     },
     {
       "number": 57,
@@ -71,10 +84,13 @@
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/57",
       "pullRequestUrl": null,
       "previewUrl": null,
+      "pullRequestNumber": null,
+      "branch": "issue-57-teams",
       "pendingNotifications": {
         "count": 1,
         "oldestAt": "2026-09-21T00:04:48+09:00"
-      }
+      },
+      "archived": true
     },
     {
       "number": 58,
@@ -86,10 +102,13 @@
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/58",
       "pullRequestUrl": null,
       "previewUrl": null,
+      "pullRequestNumber": null,
+      "branch": "issue-58-dashboard",
       "pendingNotifications": {
         "count": 10,
         "oldestAt": "2026-09-21T01:05:15+09:00"
-      }
+      },
+      "archived": true
     },
     {
       "number": 59,
@@ -101,10 +120,13 @@
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/59",
       "pullRequestUrl": null,
       "previewUrl": null,
+      "pullRequestNumber": null,
+      "branch": "issue-59-dashboard-2",
       "pendingNotifications": {
         "count": 5,
         "oldestAt": "2026-09-21T18:47:42+09:00"
-      }
+      },
+      "archived": true
     },
     {
       "number": 60,
@@ -116,10 +138,13 @@
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/60",
       "pullRequestUrl": null,
       "previewUrl": null,
+      "pullRequestNumber": null,
+      "branch": "issue-60-dashboard-3",
       "pendingNotifications": {
         "count": 3,
         "oldestAt": "2026-09-21T19:57:17+09:00"
-      }
+      },
+      "archived": true
     },
     {
       "number": 61,
@@ -131,10 +156,13 @@
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/61",
       "pullRequestUrl": null,
       "previewUrl": null,
+      "pullRequestNumber": null,
+      "branch": "issue-61-customer7",
       "pendingNotifications": {
         "count": 2,
         "oldestAt": "2026-09-21T22:02:19+09:00"
-      }
+      },
+      "archived": true
     },
     {
       "number": 62,
@@ -146,10 +174,13 @@
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/62",
       "pullRequestUrl": null,
       "previewUrl": null,
+      "pullRequestNumber": null,
+      "branch": "issue-62-customer8",
       "pendingNotifications": {
         "count": 68,
         "oldestAt": "2026-09-21T22:59:30+09:00"
-      }
+      },
+      "archived": true
     },
     {
       "number": 63,
@@ -161,10 +192,13 @@
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/63",
       "pullRequestUrl": null,
       "previewUrl": null,
+      "pullRequestNumber": null,
+      "branch": "feature/issue-63-issue",
       "pendingNotifications": {
         "count": 2,
         "oldestAt": "2026-09-22T19:23:56+09:00"
-      }
+      },
+      "archived": true
     },
     {
       "number": 64,
@@ -176,10 +210,13 @@
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/64",
       "pullRequestUrl": null,
       "previewUrl": null,
+      "pullRequestNumber": null,
+      "branch": "feature/issue-64-issue",
       "pendingNotifications": {
         "count": 2,
         "oldestAt": "2026-09-22T19:27:22+09:00"
-      }
+      },
+      "archived": true
     },
     {
       "number": 65,
@@ -191,10 +228,13 @@
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/65",
       "pullRequestUrl": null,
       "previewUrl": null,
+      "pullRequestNumber": null,
+      "branch": "feature/issue-65-issue",
       "pendingNotifications": {
         "count": 3,
         "oldestAt": "2026-09-22T19:45:06+09:00"
-      }
+      },
+      "archived": true
     },
     {
       "number": 67,
@@ -206,10 +246,13 @@
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/67",
       "pullRequestUrl": null,
       "previewUrl": null,
+      "pullRequestNumber": null,
+      "branch": "feature/issue-67-issue",
       "pendingNotifications": {
         "count": 2,
         "oldestAt": "2026-09-22T22:00:17+09:00"
-      }
+      },
+      "archived": true
     },
     {
       "number": 68,
@@ -221,10 +264,13 @@
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/68",
       "pullRequestUrl": "https://github.com/ymatsuda-cmyk/tools/pull/69",
       "previewUrl": "https://ymatsuda-cmyk.github.io/tools-beta/preview/issue-68/issue-68/",
+      "pullRequestNumber": 69,
+      "branch": "feature/issue-68-疎通確認-connectivity-test",
       "pendingNotifications": {
         "count": 4,
         "oldestAt": "2026-09-23T12:51:20+09:00"
-      }
+      },
+      "archived": true
     },
     {
       "number": 72,
@@ -236,10 +282,13 @@
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/72",
       "pullRequestUrl": "https://github.com/ymatsuda-cmyk/tools/pull/73",
       "previewUrl": "https://ymatsuda-cmyk.github.io/tools-beta/preview/issue-72/customer9/",
+      "pullRequestNumber": 73,
+      "branch": "feature/issue-72-issue",
       "pendingNotifications": {
         "count": 0,
         "oldestAt": null
-      }
+      },
+      "archived": true
     },
     {
       "number": 74,
@@ -251,10 +300,13 @@
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/74",
       "pullRequestUrl": null,
       "previewUrl": null,
+      "pullRequestNumber": null,
+      "branch": "feature/issue-74-issue",
       "pendingNotifications": {
         "count": 0,
         "oldestAt": null
-      }
+      },
+      "archived": false
     },
     {
       "number": 75,
@@ -266,10 +318,13 @@
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/75",
       "pullRequestUrl": "https://github.com/ymatsuda-cmyk/tools/pull/76",
       "previewUrl": "https://ymatsuda-cmyk.github.io/tools-beta/preview/issue-75/customer11/",
+      "pullRequestNumber": 76,
+      "branch": "feature/issue-75-issue",
       "pendingNotifications": {
         "count": 0,
         "oldestAt": null
-      }
+      },
+      "archived": true
     },
     {
       "number": 77,
@@ -281,10 +336,13 @@
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/77",
       "pullRequestUrl": "https://github.com/ymatsuda-cmyk/tools/pull/78",
       "previewUrl": "https://ymatsuda-cmyk.github.io/tools-beta/preview/issue-77/clipstock/",
+      "pullRequestNumber": 78,
+      "branch": "feature/issue-77-issue",
       "pendingNotifications": {
         "count": 0,
         "oldestAt": null
-      }
+      },
+      "archived": true
     }
   ]
 }
