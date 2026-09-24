@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T17:40:06+09:00",
+  "generatedAt": "2026-09-24T17:40:49+09:00",
   "repository": "ymatsuda-cmyk/tools",
   "issues": [
     {
@@ -303,8 +303,8 @@
       "pullRequestNumber": null,
       "branch": "feature/issue-74-issue",
       "pendingNotifications": {
-        "count": 1,
-        "oldestAt": "2026-09-24T17:39:56+09:00"
+        "count": 0,
+        "oldestAt": null
       },
       "archived": true
     },
