@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Issue状態ダッシュボード</title>
+<style>
+* { box-sizing: border-box; }
+body { margin:0; font-family: -apple-system, "Segoe UI", "Hiragino Sans", "Noto Sans JP", Meiryo, sans-serif;
+  background:#F5F4F0; color:#2C2C2A; }
+header { padding:16px 20px 8px; }
+h1 { font-size:18px; font-weight:500; margin:0; }
+.updated { font-size:12px; color:#5F5E5A; margin:4px 0 0; }
+.error { font-size:12px; color:#791F1F; margin:4px 0 0; }
+.board { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; padding:8px 20px 24px; }
+@media (max-width:640px) { .board { grid-template-columns:1fr; } }
+.column-title { font-size:13px; font-weight:500; color:#5F5E5A; margin-bottom:8px; }
+.count { color:#888780; font-weight:400; }
+.card { border-radius:0 8px 8px 0; border-left:3px solid; padding:10px 12px; margin-bottom:8px; font-size:13px; }
+.card-title { font-weight:500; }
+.card-status { font-size:11px; margin-top:4px; }
+.links { font-size:11px; margin-top:6px; }
+.links a { color:#0C447C; text-decoration:none; margin-right:8px; }
+.empty { font-size:12px; color:#888780; padding:8px 0; }
+.warn { color:#791F1F; font-weight:500; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Issue状態ダッシュボード</h1>
+  <p class="updated" id="updated">読み込み中...</p>
+  <p class="error" id="error" style="display:none;"></p>
+</header>
+<main class="board" id="board"></main>
+
+<script>
+const DATA_URL = "../data/agent/dashboard.json";
+const POLL_INTERVAL_MS = 30000;
+
+const PHASES = [
+  ["待機中", ["created", "queued", "rework"]],
+  ["実装中", ["implementing", "waiting_decision", "preview_deploying"]],
+  ["承認待ち", ["waiting_approval", "approved"]],
+  ["終了", ["completed", "rejected", "failed"]]
+];
+
+const STATUS_COLORS = {
+  created:           ["#F1EFE8", "#888780", "#5F5E5A"],
+  queued:            ["#F1EFE8", "#888780", "#5F5E5A"],
+  rework:            ["#FAEEDA", "#BA7517", "#633806"],
+  implementing:      ["#E6F1FB", "#378ADD", "#0C447C"],
+  waiting_decision:  ["#FAEEDA", "#BA7517", "#633806"],
+  preview_deploying: ["#E6F1FB", "#378ADD", "#0C447C"],
+  waiting_approval:  ["#FAEEDA", "#BA7517", "#633806"],
+  approved:          ["#E6F1FB", "#378ADD", "#0C447C"],
+  completed:         ["#EAF3DE", "#639922", "#173404"],
+  rejected:          ["#F1EFE8", "#888780", "#5F5E5A"],
+  failed:            ["#FCEBEB", "#E24B4A", "#791F1F"]
+};
+const DEFAULT_COLOR = STATUS_COLORS.created;
+
+const STUCK_THRESHOLD_SECONDS = {
+  waiting_approval: 2 * 3600,
+  waiting_decision: 1 * 3600
+};
+
+function phaseOf(status) {
+  for (const [name, statuses] of PHASES) {
+    if (statuses.includes(status)) return name;
+  }
+  return PHASES[PHASES.length - 1][0];
+}
+
+function formatElapsed(isoString) {
+  if (!isoString) return { label: "", seconds: null };
+  const parsed = new Date(isoString);
+  if (isNaN(parsed.getTime())) return { label: "", seconds: null };
+
+  let seconds = Math.max(0, Math.floor((Date.now() - parsed.getTime()) / 1000));
+  if (seconds < 60) return { label: seconds + "秒前", seconds };
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return { label: minutes + "分前", seconds };
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return { label: hours + "時間" + (minutes % 60) + "分前", seconds };
+  const days = Math.floor(hours / 24);
+  return { label: days + "日前", seconds };
+}
+
+function escapeHtml(value) {
+  const div = document.createElement("div");
+  div.textContent = String(value);
+  return div.innerHTML;
+}
+
+function buildCard(issue) {
+  const status = (issue.status || "").toLowerCase();
+  const [bg, border, textColor] = STATUS_COLORS[status] || DEFAULT_COLOR;
+  const elapsed = formatElapsed(issue.updatedAt);
+  const threshold = STUCK_THRESHOLD_SECONDS[status];
+  const isStuck = threshold != null && elapsed.seconds != null && elapsed.seconds >= threshold;
+
+  let statusLine = escapeHtml(status);
+  if (elapsed.label) statusLine += " ・ " + escapeHtml(elapsed.label);
+  if (isStuck) statusLine += ' <span class="warn">⚠ 放置</span>';
+
+  const links = [];
+  if (issue.issueUrl) links.push('<a href="' + escapeHtml(issue.issueUrl) + '" target="_blank" rel="noopener">Issue</a>');
+  if (issue.pullRequestUrl) links.push('<a href="' + escapeHtml(issue.pullRequestUrl) + '" target="_blank" rel="noopener">PR</a>');
+  if (issue.previewUrl) links.push('<a href="' + escapeHtml(issue.previewUrl) + '" target="_blank" rel="noopener">プレビュー</a>');
+  const linksHtml = links.length ? '<div class="links">' + links.join("") + "</div>" : "";
+
+  return (
+    '<div class="card" style="background:' + bg + ';border-left-color:' + border + ';">' +
+    '<div class="card-title" style="color:' + textColor + ';">#' + issue.number + " " + escapeHtml(issue.title) + "</div>" +
+    '<div class="card-status" style="color:' + border + ';">' + statusLine + "</div>" +
+    linksHtml +
+    "</div>"
+  );
+}
+
+function render(data) {
+  const groups = {};
+  for (const [name] of PHASES) groups[name] = [];
+  for (const issue of data.issues || []) {
+    groups[phaseOf((issue.status || "").toLowerCase())].push(issue);
+  }
+
+  const board = document.getElementById("board");
+  board.innerHTML = "";
+
+  for (const [name] of PHASES) {
+    const items = groups[name];
+    const column = document.createElement("div");
+    const cardsHtml = items.length
+      ? items.map(buildCard).join("")
+      : '<div class="empty">なし</div>';
+    column.innerHTML =
+      '<div class="column-title">' + escapeHtml(name) +
+      ' <span class="count">' + items.length + "</span></div>" +
+      cardsHtml;
+    board.appendChild(column);
+  }
+
+  const generated = data.generatedAt ? new Date(data.generatedAt) : null;
+  document.getElementById("updated").textContent =
+    "最終更新: " + (generated ? generated.toLocaleString("ja-JP") : "不明") +
+    "（" + Math.round(POLL_INTERVAL_MS / 1000) + "秒ごとに自動更新）";
+  document.getElementById("error").style.display = "none";
+}
+
+async function load() {
+  try {
+    const response = await fetch(DATA_URL + "?t=" + Date.now(), { cache: "no-store" });
+    if (!response.ok) throw new Error("HTTP " + response.status);
+    const data = await response.json();
+    render(data);
+  } catch (error) {
+    document.getElementById("error").textContent = "データの取得に失敗しました: " + error.message;
+    document.getElementById("error").style.display = "block";
+  }
+}
+
+load();
+setInterval(load, POLL_INTERVAL_MS);
+</script>
+</body>
+</html>
