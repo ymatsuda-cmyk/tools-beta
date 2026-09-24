@@ -1,20 +1,11 @@
 {
-  "generatedAt": "2026-09-24T14:14:47+09:00",
+  "generatedAt": "2026-09-24T14:19:17+09:00",
   "issues": [
     {
       "number": 1,
       "title": "t",
       "status": "failed",
       "updatedAt": "2026-09-22T19:08:30",
-      "issueUrl": null,
-      "pullRequestUrl": null,
-      "previewUrl": null
-    },
-    {
-      "number": 3,
-      "title": "t",
-      "status": "waiting_approval",
-      "updatedAt": "2026-09-22T16:09:10",
       "issueUrl": null,
       "pullRequestUrl": null,
       "previewUrl": null
@@ -193,8 +184,8 @@
     {
       "number": 77,
       "title": "issue",
-      "status": "approved",
-      "updatedAt": "2026-09-24T14:13:50+09:00",
+      "status": "completed",
+      "updatedAt": "2026-09-24T14:19:04+09:00",
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/77",
       "pullRequestUrl": "https://github.com/ymatsuda-cmyk/tools/pull/78",
       "previewUrl": "https://ymatsuda-cmyk.github.io/tools-beta/preview/issue-77/clipstock/"
