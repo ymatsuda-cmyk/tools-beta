@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T11:32:43+09:00",
+  "generatedAt": "2026-09-24T11:33:30+09:00",
   "issues": [
     {
       "number": 1,
@@ -189,6 +189,15 @@
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/75",
       "pullRequestUrl": "https://github.com/ymatsuda-cmyk/tools/pull/76",
       "previewUrl": "https://ymatsuda-cmyk.github.io/tools-beta/preview/issue-75/customer11/"
+    },
+    {
+      "number": 77,
+      "title": "issue",
+      "status": "created",
+      "updatedAt": "2026-09-24T11:33:18+09:00",
+      "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/77",
+      "pullRequestUrl": null,
+      "previewUrl": null
     }
   ]
 }
