@@ -1,194 +1,320 @@
 {
-  "generatedAt": "2026-09-24T15:27:02+09:00",
+  "generatedAt": "2026-09-24T15:32:07+09:00",
   "issues": [
     {
       "number": 1,
       "title": "t",
       "status": "failed",
+      "statusLabel": "異常終了",
+      "error": "implement_agent exit code 1",
       "updatedAt": "2026-09-22T19:08:30",
       "issueUrl": null,
       "pullRequestUrl": null,
-      "previewUrl": null
+      "previewUrl": null,
+      "pendingNotifications": {
+        "count": 0,
+        "oldestAt": null
+      }
     },
     {
       "number": 4,
       "title": "(タイトルなし)",
       "status": "completed",
+      "statusLabel": "完了",
+      "error": "",
       "updatedAt": "2026-09-22T16:09:11",
       "issueUrl": null,
       "pullRequestUrl": null,
-      "previewUrl": null
+      "previewUrl": null,
+      "pendingNotifications": {
+        "count": 2,
+        "oldestAt": "2026-09-22T16:08:02+09:00"
+      }
     },
     {
       "number": 5,
       "title": "(タイトルなし)",
       "status": "failed",
+      "statusLabel": "異常終了",
+      "error": "implement_agent exit code 1",
       "updatedAt": "2026-09-22T19:08:31",
       "issueUrl": null,
       "pullRequestUrl": null,
-      "previewUrl": null
+      "previewUrl": null,
+      "pendingNotifications": {
+        "count": 1,
+        "oldestAt": "2026-09-22T16:08:05+09:00"
+      }
     },
     {
       "number": 7,
       "title": "(タイトルなし)",
       "status": "completed",
+      "statusLabel": "完了",
+      "error": "",
       "updatedAt": "2026-09-22T16:09:22",
       "issueUrl": null,
       "pullRequestUrl": null,
-      "previewUrl": null
+      "previewUrl": null,
+      "pendingNotifications": {
+        "count": 0,
+        "oldestAt": null
+      }
     },
     {
       "number": 8,
       "title": "却下されたIssue",
       "status": "rejected",
+      "statusLabel": "却下",
+      "error": "",
       "updatedAt": "2026-09-22T16:09:23",
       "issueUrl": null,
       "pullRequestUrl": null,
-      "previewUrl": null
+      "previewUrl": null,
+      "pendingNotifications": {
+        "count": 0,
+        "oldestAt": null
+      }
     },
     {
       "number": 12,
       "title": "(タイトルなし)",
       "status": "failed",
+      "statusLabel": "異常終了",
+      "error": "implement_agent exit code 1",
       "updatedAt": "2026-09-22T19:08:32",
       "issueUrl": null,
       "pullRequestUrl": null,
-      "previewUrl": null
+      "previewUrl": null,
+      "pendingNotifications": {
+        "count": 0,
+        "oldestAt": null
+      }
     },
     {
       "number": 30,
       "title": "(タイトルなし)",
       "status": "failed",
+      "statusLabel": "異常終了",
+      "error": "implement_agent exit code 1",
       "updatedAt": "2026-09-22T19:08:50",
       "issueUrl": null,
       "pullRequestUrl": null,
-      "previewUrl": null
+      "previewUrl": null,
+      "pendingNotifications": {
+        "count": 0,
+        "oldestAt": null
+      }
     },
     {
       "number": 31,
       "title": "(タイトルなし)",
       "status": "failed",
+      "statusLabel": "異常終了",
+      "error": "implement_agent exit code 1",
       "updatedAt": "2026-09-22T19:08:51",
       "issueUrl": null,
       "pullRequestUrl": null,
-      "previewUrl": null
+      "previewUrl": null,
+      "pendingNotifications": {
+        "count": 0,
+        "oldestAt": null
+      }
     },
     {
       "number": 32,
       "title": "(タイトルなし)",
       "status": "failed",
+      "statusLabel": "異常終了",
+      "error": "implement_agent exit code 1",
       "updatedAt": "2026-09-22T19:08:53",
       "issueUrl": null,
       "pullRequestUrl": null,
-      "previewUrl": null
+      "previewUrl": null,
+      "pendingNotifications": {
+        "count": 0,
+        "oldestAt": null
+      }
     },
     {
       "number": 33,
       "title": "(タイトルなし)",
       "status": "failed",
+      "statusLabel": "異常終了",
+      "error": "implement_agent exit code 1",
       "updatedAt": "2026-09-22T19:09:11",
       "issueUrl": null,
       "pullRequestUrl": null,
-      "previewUrl": null
+      "previewUrl": null,
+      "pendingNotifications": {
+        "count": 0,
+        "oldestAt": null
+      }
     },
     {
       "number": 34,
       "title": "(タイトルなし)",
       "status": "failed",
+      "statusLabel": "異常終了",
+      "error": "implement_agent exit code 1",
       "updatedAt": "2026-09-22T19:09:12",
       "issueUrl": null,
       "pullRequestUrl": null,
-      "previewUrl": null
+      "previewUrl": null,
+      "pendingNotifications": {
+        "count": 0,
+        "oldestAt": null
+      }
     },
     {
       "number": 63,
       "title": "issue",
       "status": "implementing",
+      "statusLabel": "実装中",
+      "error": "",
       "updatedAt": "2026-09-22T19:24:25",
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/63",
       "pullRequestUrl": null,
-      "previewUrl": null
+      "previewUrl": null,
+      "pendingNotifications": {
+        "count": 2,
+        "oldestAt": "2026-09-22T19:23:56+09:00"
+      }
     },
     {
       "number": 64,
       "title": "issue",
       "status": "implementing",
+      "statusLabel": "実装中",
+      "error": "",
       "updatedAt": "2026-09-22T19:27:44",
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/64",
       "pullRequestUrl": null,
-      "previewUrl": null
+      "previewUrl": null,
+      "pendingNotifications": {
+        "count": 2,
+        "oldestAt": "2026-09-22T19:27:22+09:00"
+      }
     },
     {
       "number": 65,
       "title": "issue",
       "status": "failed",
+      "statusLabel": "異常終了",
+      "error": "implement_agent exit code 1",
       "updatedAt": "2026-09-22T20:16:26",
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/65",
       "pullRequestUrl": null,
-      "previewUrl": null
+      "previewUrl": null,
+      "pendingNotifications": {
+        "count": 3,
+        "oldestAt": "2026-09-22T19:45:06+09:00"
+      }
     },
     {
       "number": 67,
       "title": "issue",
       "status": "failed",
+      "statusLabel": "異常終了",
+      "error": "implement_agent exit code 1",
       "updatedAt": "2026-09-22T22:06:39",
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/67",
       "pullRequestUrl": null,
-      "previewUrl": null
+      "previewUrl": null,
+      "pendingNotifications": {
+        "count": 2,
+        "oldestAt": "2026-09-22T22:00:17+09:00"
+      }
     },
     {
       "number": 68,
       "title": "【疎通確認】connectivity test",
       "status": "completed",
+      "statusLabel": "完了",
+      "error": "",
       "updatedAt": "2026-09-23T13:23:13",
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/68",
       "pullRequestUrl": "https://github.com/ymatsuda-cmyk/tools/pull/69",
-      "previewUrl": "https://ymatsuda-cmyk.github.io/tools-beta/preview/issue-68/issue-68/"
+      "previewUrl": "https://ymatsuda-cmyk.github.io/tools-beta/preview/issue-68/issue-68/",
+      "pendingNotifications": {
+        "count": 4,
+        "oldestAt": "2026-09-23T12:51:20+09:00"
+      }
     },
     {
       "number": 70,
       "title": "(タイトルなし)",
       "status": "failed",
+      "statusLabel": "異常終了",
+      "error": "branch未設定",
       "updatedAt": "2026-09-23T21:38:09+09:00",
       "issueUrl": null,
       "pullRequestUrl": null,
-      "previewUrl": null
+      "previewUrl": null,
+      "pendingNotifications": {
+        "count": 12,
+        "oldestAt": "2026-09-23T16:54:19+09:00"
+      }
     },
     {
       "number": 72,
       "title": "issue",
       "status": "rejected",
+      "statusLabel": "却下",
+      "error": "",
       "updatedAt": "2026-09-23T22:22:57+09:00",
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/72",
       "pullRequestUrl": "https://github.com/ymatsuda-cmyk/tools/pull/73",
-      "previewUrl": "https://ymatsuda-cmyk.github.io/tools-beta/preview/issue-72/customer9/"
+      "previewUrl": "https://ymatsuda-cmyk.github.io/tools-beta/preview/issue-72/customer9/",
+      "pendingNotifications": {
+        "count": 0,
+        "oldestAt": null
+      }
     },
     {
       "number": 74,
       "title": "issue",
       "status": "implementing",
+      "statusLabel": "実装中",
+      "error": "",
       "updatedAt": "2026-09-23T22:53:33+09:00",
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/74",
       "pullRequestUrl": null,
-      "previewUrl": null
+      "previewUrl": null,
+      "pendingNotifications": {
+        "count": 0,
+        "oldestAt": null
+      }
     },
     {
       "number": 75,
       "title": "issue",
       "status": "completed",
+      "statusLabel": "完了",
+      "error": "",
       "updatedAt": "2026-09-23T23:45:03+09:00",
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/75",
       "pullRequestUrl": "https://github.com/ymatsuda-cmyk/tools/pull/76",
-      "previewUrl": "https://ymatsuda-cmyk.github.io/tools-beta/preview/issue-75/customer11/"
+      "previewUrl": "https://ymatsuda-cmyk.github.io/tools-beta/preview/issue-75/customer11/",
+      "pendingNotifications": {
+        "count": 0,
+        "oldestAt": null
+      }
     },
     {
       "number": 77,
       "title": "issue",
       "status": "completed",
+      "statusLabel": "完了",
+      "error": "静的チェック不合格",
       "updatedAt": "2026-09-24T14:19:04+09:00",
       "issueUrl": "https://github.com/ymatsuda-cmyk/tools/issues/77",
       "pullRequestUrl": "https://github.com/ymatsuda-cmyk/tools/pull/78",
-      "previewUrl": "https://ymatsuda-cmyk.github.io/tools-beta/preview/issue-77/clipstock/"
+      "previewUrl": "https://ymatsuda-cmyk.github.io/tools-beta/preview/issue-77/clipstock/",
+      "pendingNotifications": {
+        "count": 0,
+        "oldestAt": null
+      }
     }
   ]
 }
